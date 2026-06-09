@@ -1,5 +1,6 @@
 import sqlite3 
 
+#input validation functions:
 def get_int(prompt):
     while True:
         value = input(prompt)
@@ -23,6 +24,7 @@ def get_datetime(prompt):
             return value
         print("Please enter a valid datetime (e.g. 2026-06-10 09:00)")
 
+#database table creation:
 def create_database():
     conn = sqlite3.connect("flight_management.db")
     cursor = conn.cursor()
@@ -163,6 +165,7 @@ def populate_database():
         flights
     )
 
+#associates flightID with a pilotID: 
     flight_pilots = [
         (1, 1), (1, 2),
         (2, 2), (2, 3),
