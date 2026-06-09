@@ -310,9 +310,10 @@ def update_flight():
 
     flight_id = input("Enter Flight ID to update: ")
 
-    print("\nUpdate:")
+    print("\nOptions:")
     print("1. Flight Status")
     print("2. Departure Date/Time")
+    print("3. Delete Flight")
 
     choice = input("Choose an option: ")
 
@@ -328,10 +329,12 @@ def update_flight():
             WHERE FlightID = ?
         """, (new_status, flight_id))
 
+        print("Flight status updated")
+ 
     elif choice == "2":
 
         new_departure = get_datetime(
-            "Enter new departure date/time (YYYY-MM-DD HH:MM): "
+            "Enter new departure date/time (YYYY-MM-DD HH:MM):"
         )
 
         cursor.execute("""
@@ -339,6 +342,24 @@ def update_flight():
             SET DepartureDateTime = ?
             WHERE FlightID = ?
         """, (new_departure, flight_id))
+
+        print("Departure updated")
+
+    elif choice == "3":
+
+        # deletes from junction table 
+        cursor.execute("""
+            DELETE FROM FlightPilot
+            WHERE FlightID = ?
+        """, (flight_id,))
+
+        # deletes flight
+        cursor.execute("""
+            DELETE FROM Flight
+            WHERE FlightID = ?
+        """, (flight_id,))
+
+        print("Flight deleted successfully")
 
     else:
         print("Invalid option")
@@ -350,7 +371,7 @@ def update_flight():
     if cursor.rowcount > 0:
         print("Flight updated successfully")
     else:
-        print("Flight not found")
+        print("No matching flight found")
 
     conn.close()
 
@@ -580,5 +601,5 @@ def main_menu():
 
 create_database()
 # only run once to initialise DB:
-#populate_database()
+# populate_database()
 main_menu()
