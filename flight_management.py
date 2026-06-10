@@ -84,6 +84,7 @@ def create_database():
     conn.commit()
     conn.close()
 
+#inserts sample data for each table 
 def populate_database():
 
     conn = sqlite3.connect("flight_management.db")
@@ -189,6 +190,7 @@ def populate_database():
     conn.commit()
     conn.close()
 
+#allows user to add a new flight 
 def add_flight():
 
     conn = sqlite3.connect("flight_management.db")
@@ -223,6 +225,8 @@ def add_flight():
 
     conn.close()
 
+#allows user to retrieve flight based on criteria selected
+#SQL join queries join flight and destination tables
 def view_flights():
 
     conn = sqlite3.connect("flight_management.db")
@@ -303,6 +307,7 @@ def view_flights():
 
     conn.close()
 
+#allows flight information to be updated or flight to be deleted
 def update_flight():
 
     conn = sqlite3.connect("flight_management.db")
@@ -375,6 +380,7 @@ def update_flight():
 
     conn.close()
 
+#Inserts record into FlightPilot junction table to assign pilot to flight
 def assign_pilot():
 
     conn = sqlite3.connect("flight_management.db")
@@ -398,6 +404,8 @@ def assign_pilot():
 
     conn.close()
 
+#displays all flights assigned to selected pilot
+#uses multiple JOIN statements to use multiple tables
 def view_pilot_schedule():
 
     conn = sqlite3.connect("flight_management.db")
@@ -500,7 +508,7 @@ def view_report():
 
     conn = sqlite3.connect("flight_management.db")
     cursor = conn.cursor()
-
+#uses count and group queries to calculate totals
     print("\nReports")
     print("1. Flights Per Destination")
     print("2. Flights Per Pilot")
@@ -551,6 +559,7 @@ def view_report():
 
     conn.close()
 
+#allows user navigation 
 def main_menu():
 
     while True:
@@ -601,5 +610,5 @@ def main_menu():
 
 create_database()
 # only run once to initialise DB:
-# populate_database()
+populate_database()
 main_menu()
