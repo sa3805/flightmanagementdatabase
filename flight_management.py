@@ -610,5 +610,5 @@ def main_menu():
 
 create_database()
 # only run once to initialise DB:
-populate_database()
+#populate_database()
 main_menu()
